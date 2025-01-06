@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:space/planet_controller.dart';
 import 'package:space/planets.dart';
-
 
 class MiniPlanetSlider extends StatefulWidget {
   const MiniPlanetSlider({super.key});
@@ -15,10 +12,8 @@ class MiniPlanetSlider extends StatefulWidget {
 
 class _MiniPlanetSliderState extends State<MiniPlanetSlider> {
 
-
   late PageController controller;
   late PlanetController planetController;
-
 
   @override
   void initState() {
@@ -40,15 +35,11 @@ class _MiniPlanetSliderState extends State<MiniPlanetSlider> {
 
   @override
   Widget build(BuildContext context) {
-    planetController = context.read<PlanetController>();
     return Stack(
       children: [
 
-        Positioned(
-          bottom: -220,
-          left: 0,
-          width: MediaQuery.of(context).size.width,
-          height: 200,
+        Align(
+          alignment: Alignment(0, 1.25),
           child: CustomPaint(
             painter: _CircleLinePainter(),
             child: const SizedBox(
@@ -61,7 +52,7 @@ class _MiniPlanetSliderState extends State<MiniPlanetSlider> {
           controller: controller,
           itemCount: Planets.list.length,
           onPageChanged: (value) {
-            planetController.currentPage = value;
+            context.read<PlanetController>().currentPage = value;
           },
           itemBuilder: builder,
         )
@@ -127,7 +118,6 @@ class _CircleLinePainter extends CustomPainter {
     final radius = size.width / 1.8;
 
     canvas.drawCircle(center, radius, paint);
-
   }
 
   @override
